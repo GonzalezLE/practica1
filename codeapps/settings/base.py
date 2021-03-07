@@ -1,6 +1,7 @@
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
+#from pathlib import Path
+from unipath import Path
+BASE_DIR = Path(__file__).ancestor(3)
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = '7l_bt88sxtou(^%(su-_c9fj6+gymjoj=-%0xfb!(rqf-*lt)!'
 
@@ -32,7 +33,7 @@ ROOT_URLCONF = 'codeapps.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.child('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
