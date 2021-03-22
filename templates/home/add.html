@@ -1,2 +1,10 @@
 <h3>Formulario</h3>
-{{form}}
+
+<form method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit">
+    Guardar
+  </button>
+</form>
+

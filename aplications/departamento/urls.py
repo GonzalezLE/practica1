@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.urls import path
 
-def DesdeApps(self):
-  print('======Desde la app departamento=============')
+from  . import views
+
+
+
 urlpatterns = [
-    path('departamento/',DesdeApps),
+    path('new-departamento/', views.NewDepartamentoView.as_view(),name='Nuevo_departamento'),
 ]
