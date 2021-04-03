@@ -12,15 +12,31 @@ from django.views.generic import (
 
 from .models import Persona
 #listar todos los empleados de la empresa
+
+class InicioView(TemplateView):
+  """ Vista que carga la pagina de inicio """
+  template_name = 'inicio.html'
+
+
+
 class listAllEmpleados(ListView):
   template_name = 'empleado/lista_all.html'
   paginate_by=4
-  model=Persona
+  #ordering=''
+  context_object_name = 'empleados'
+  def get_queryset(self):
+    palabra_clave = self.request.GET.get('kword','')
+    lista = Persona.objects.filter(
+        full_name__icontains=palabra_clave
+      #first_name=palabra_clave
+
+    )
+    return lista
 
 class listByAreaEmpleado(ListView):
   """ Lista empleados de una area """
   template_name = 'empleado/lista_by_area.html'
-  
+  context_object_name='empleados'
   def get_queryset(self):
     area = self.kwargs['shorname']
     lista=Persona.objects.filter(
@@ -34,7 +50,7 @@ class ListEmpleadosByKwords(ListView):
   context_object_name='empleados'
 
   def get_queryset(self):    
-    palabra_clave=self.request.GET.get('kword')
+    palabra_clave = self.request.GET.get('kword')
     lista = Persona.objects.filter(
       first_name=palabra_clave
     )
